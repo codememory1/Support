@@ -13,7 +13,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Codememory\\Support\\": "src/"
+            "Codememory\\Support\\": ""
         }
     },
     "require-dev": {
