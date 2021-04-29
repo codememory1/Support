@@ -1,0 +1,22 @@
+{
+    "name": "codememory/support",
+    "license": "MIT",
+    "description": "",
+    "authors": [
+        {
+            "name": "Danil",
+            "email": "kostynd1@gmail.com"
+        }
+    ],
+    "require": {
+        "ext-mbstring": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Codememory\\Support\\": "src/"
+        }
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^5.2"
+    }
+}
