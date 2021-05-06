@@ -76,6 +76,24 @@ class Arr
     }
 
     /**
+     * @param string ...$keys
+     *
+     * @return array
+     */
+    #[Pure] public static function select(string ...$keys): array
+    {
+
+        $data = [];
+
+        foreach ($keys as $key) {
+            $data = array_merge($data, self::get($key));
+        }
+
+        return $data;
+
+    }
+
+    /**
      * @param array  $data
      * @param string $key
      * @param mixed  $value
@@ -308,7 +326,7 @@ class Arr
         foreach ($where as $index => $value) {
             ++$currentPosition;
 
-            if($currentPosition === $position) {
+            if ($currentPosition === $position) {
                 $data[Str::random(5)] = $addedData;
             }
 
@@ -370,6 +388,23 @@ class Arr
     }
 
     /**
+     * @param array $data
+     * @param       ...$arrays
+     *
+     * @return array
+     */
+    public static function merge(array &$data, ...$arrays): array
+    {
+
+        foreach ($arrays as $array) {
+            $data = array_merge($data, is_array($array) ? $array : [$array]);
+        }
+
+        return $data;
+
+    }
+
+    /**
      * @param array       $data
      * @param string|null $prepend
      * @param string      $separator
@@ -383,9 +418,9 @@ class Arr
 
         foreach ($data as $key => $item) {
             if (is_array($item) && false === empty($item)) {
-                $results = array_merge($results, self::handlerDot($item, $prepend.$key.$separator));
+                $results = array_merge($results, self::handlerDot($item, $prepend . $key . $separator));
             } else {
-                $results[$prepend.$key] = $item;
+                $results[$prepend . $key] = $item;
             }
         }
 

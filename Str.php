@@ -293,6 +293,38 @@ class Str
     }
 
     /**
+     * @param string $str
+     * @param string $symbol
+     * @param bool   $firstOccurrence
+     *
+     * @return string
+     */
+    public static function trimToSymbol(string $str, string $symbol, bool $firstOccurrence = true): string
+    {
+
+        $position = $firstOccurrence ? mb_strpos($str, $symbol) : mb_strrpos($str, $symbol);
+
+        return mb_substr($str, $position + 1);
+
+    }
+
+    /**
+     * @param string $str
+     * @param string $symbol
+     * @param bool   $firstOccurrence
+     *
+     * @return string
+     */
+    public static function trimAfterSymbol(string $str, string $symbol, bool $firstOccurrence = true): string
+    {
+
+        $position = $firstOccurrence ? mb_strpos($str, $symbol) : mb_strrpos($str, $symbol);
+
+        return mb_substr($str, 0, $position);
+
+    }
+
+    /**
      * @param string   $str
      * @param int      $limit
      * @param callable $handler
