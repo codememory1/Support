@@ -4,6 +4,7 @@ namespace Codememory\Support;
 
 use Exception;
 use JetBrains\PhpStorm\Pure;
+use RuntimeException;
 
 /**
  * Class Arr
@@ -106,6 +107,64 @@ class Arr
         $data[$key] = $value;
 
         return true;
+
+    }
+
+    /**
+     * @param array    $data
+     * @param callable $callback
+     *
+     * @return array
+     */
+    public static function map(array &$data, callable $callback): array
+    {
+
+        $formattedData = [];
+
+        foreach ($data as $key => $value) {
+            $handler = call_user_func($callback, $key, $value, $data);
+
+            if (!is_array($handler) || count($handler) < 1) {
+                throw new RuntimeException('The Arr::map method callback must return an array with two elements, a key and a value, or must return an array with only a value');
+            }
+
+            switch (count($handler)) {
+                case 1:
+                    $formattedData[$key] = $handler[0];
+                    break;
+                case 2:
+                    $formattedData[$handler[0]] = $handler[1];
+                    break;
+                default:
+                    $formattedData[$key] = $value;
+                    break;
+            }
+        }
+
+        return $data = $formattedData;
+
+    }
+
+    /**
+     * @param array $data
+     * @param array $keys
+     * @param array $newKeys
+     *
+     * @return array
+     */
+    public static function changeKeys(array &$data, array $keys, array $newKeys): array
+    {
+
+        foreach ($keys as $index => $oldKey) {
+            foreach ($data as $dataKey => $value) {
+                if (array_key_exists($index, $newKeys) && $dataKey === $oldKey) {
+                    $data[$newKeys[$index]] = $value;
+                    unset($data[$oldKey]);
+                }
+            }
+        }
+
+        return $data;
 
     }
 

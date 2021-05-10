@@ -143,6 +143,37 @@ if (!function_exists('arrayMerge')) {
     }
 }
 
+if (!function_exists('arrayMap')) {
+    /**
+     * @param array    $data
+     * @param callable $callback
+     *
+     * @return array
+     */
+    function arrayMap(array &$data, callable $callback): array
+    {
+
+        return Arr::map($data, $callback);
+
+    }
+}
+
+if (!function_exists('arrayChangeKeys')) {
+    /**
+     * @param array $data
+     * @param array $keys
+     * @param array $newKeys
+     *
+     * @return array
+     */
+    function arrayChangeKeys(array &$data, array $keys, array $newKeys): array
+    {
+
+        return Arr::changeKeys($data, $keys, $newKeys);
+
+    }
+}
+
 if (!function_exists('stringAsPath')) {
     /**
      * @param string $str
