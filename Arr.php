@@ -87,7 +87,7 @@ class Arr
         $data = [];
 
         foreach ($keys as $key) {
-            $data = array_merge($data, self::get($key));
+            $data[$key] = self::get($key);
         }
 
         return $data;
