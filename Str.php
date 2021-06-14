@@ -303,8 +303,8 @@ class Str
     {
 
         $position = $firstOccurrence ? mb_strpos($str, $symbol) : mb_strrpos($str, $symbol);
-
-        return mb_substr($str, $position + 1);
+        
+        return self::trimmingResultHandler(mb_substr($str, $position + 1), $str);
 
     }
 
@@ -320,7 +320,7 @@ class Str
 
         $position = $firstOccurrence ? mb_strpos($str, $symbol) : mb_strrpos($str, $symbol);
 
-        return mb_substr($str, 0, $position);
+        return self::trimmingResultHandler(mb_substr($str, 0, $position), $str);
 
     }
 
@@ -385,6 +385,19 @@ class Str
         }
 
         return $readyStr;
+
+    }
+
+    /**
+     * @param string|null $substr
+     * @param string      $str
+     *
+     * @return string
+     */
+    private static function trimmingResultHandler(?string $substr, string $str): string
+    {
+
+        return empty($substr) ? $str : $substr;
 
     }
 
