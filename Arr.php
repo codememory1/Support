@@ -8,6 +8,7 @@ use RuntimeException;
 
 /**
  * Class Arr
+ *
  * @package System\Support
  *
  * @author  Codememory
@@ -58,7 +59,8 @@ class Arr
      *
      * @return mixed
      */
-    #[Pure] public static function get(string $key): mixed
+    #[Pure]
+    public static function get(string $key): mixed
     {
 
         $data = self::$data;
@@ -81,7 +83,8 @@ class Arr
      *
      * @return array
      */
-    #[Pure] public static function select(string ...$keys): array
+    #[Pure]
+    public static function select(string ...$keys): array
     {
 
         $data = [];
@@ -236,6 +239,37 @@ class Arr
         unset($data[$first]);
 
         return $received;
+
+    }
+
+    /**
+     * @param array $sourceArray
+     * @param array $arrayToCompare
+     *
+     * @return array
+     */
+    public static function recursiveDifference(array $sourceArray, array $arrayToCompare): array
+    {
+
+        $difference = [];
+
+        foreach ($sourceArray as $key => $value) {
+            if (is_array($value)) {
+                if (!isset($arrayToCompare[$key]) || !is_array($arrayToCompare[$key])) {
+                    $difference[$key] = $value;
+                } else {
+                    $newDifference = self::recursiveDifference($value, $arrayToCompare[$key]);
+
+                    if (!empty($newDifference)) {
+                        $difference[$key] = $newDifference;
+                    }
+                }
+            } elseif (!array_key_exists($key, $arrayToCompare) || $arrayToCompare[$key] !== $value) {
+                $difference[$key] = $value;
+            }
+        }
+
+        return $difference;
 
     }
 

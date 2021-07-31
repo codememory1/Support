@@ -291,7 +291,6 @@ if (!function_exists('stringTrimToSymbol')) {
      *
      * @return string
      */
-    #[Pure]
     function stringTrimToSymbol(string $str, string $symbol, bool $firstOccurrence = true): string
     {
 
@@ -308,11 +307,25 @@ if (!function_exists('stringTrimAfterSymbol')) {
      *
      * @return string
      */
-    #[Pure]
     function stringTrimAfterSymbol(string $str, string $symbol, bool $firstOccurrence = true): string
     {
 
         return Str::trimAfterSymbol($str, $symbol, $firstOccurrence);
+
+    }
+}
+
+if (!function_exists('recursiveDifference')) {
+    /**
+     * @param array $sourceArray
+     * @param array $arrayToCompare
+     *
+     * @return array
+     */
+    function recursiveDifference(array $sourceArray, array $arrayToCompare): array
+    {
+
+        return Arr::recursiveDifference($sourceArray, $arrayToCompare);
 
     }
 }
